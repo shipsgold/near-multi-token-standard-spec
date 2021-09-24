@@ -1,0 +1,18 @@
+{
+    "openrpc": "1.0.0",
+    "info": {
+        "title": "Near Multi Token Standard Spec",
+        "version": "1.0.0"
+    },
+    "methods": [
+        {
+            "$ref": "./methods/mt_transfer.json"
+        },
+        {
+            "$ref": "./methods/mt_transfer_call.json"
+        },
+        {
+            "$ref": "./methods/mt_transfer_batch.json"
+        }
+    ]
+}
