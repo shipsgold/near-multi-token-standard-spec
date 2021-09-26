@@ -1,7 +1,7 @@
 {
   "name": "mt_metadata_contract",
-  "summary": "Returns contract level metadata",
-  "description": "Returns contract level metadata",
+  "summary": "Get contract level metadata",
+  "description": "Get contract level metadata",
   "tags": [
     {
       "$ref": "../tags/view.json"

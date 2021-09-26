@@ -1,0 +1,44 @@
+{
+  "name": "mt_tokens_base_metadata",
+  "summary": "Get list of all base metadata for the contract.",
+  "description": "Get list of all base token metadata for the contract. Useful for understanding what tokens a contract holds.",
+  "tags": [
+    {
+      "$ref": "../tags/view.json"
+    },
+    {
+      "$ref": "../tags/EnumerationExtension.json"
+    }
+  ],
+  "params": [
+    {
+      "name": "from_index",
+      "summary": "The starting pagination index. Defaults to 0.",
+      "schema": {
+        "$ref": "../schemas/PaginationFromIndex.json"
+      },
+      "required": false
+    },
+    {
+      "name": "limit",
+      "summary": "The ending pagination index. Defaults to unlimited, could run out of gas if collection is large.",
+      "schema": {
+        "$ref": "../schemas/PaginationLimit.json"
+      },
+      "required": false
+    }
+  ],
+  "result": {
+    "name": "MtTokensBaseMetadataResult",
+    "summary": "An array of MTBaseTokenMetdata objects as described in metadata extension, and an empty array if there are no tokens",
+    "schema": {
+      "type": "array",
+      "items": [
+        {
+          "$ref": "../schemas/MTBaseTokenMetadata.json"
+        }
+      ]
+    },
+    "required": true
+  }
+}

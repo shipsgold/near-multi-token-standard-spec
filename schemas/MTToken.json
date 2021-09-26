@@ -1,0 +1,20 @@
+{
+  "title": "MTToken",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "./TokenId.json"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "base_metadata_id": {
+          "$ref": "./MTBaseTokenMetadataId.json"
+        },
+        "token_metadata": {
+          "$ref": "./MTTokenMetadata.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "mt_tokens_by_owner",
+  "summary": "Get list of all tokens owned by a given account",
+  "description": "Get list of all tokens owned by a given account",
+  "tags": [
+    {
+      "$ref": "../tags/view.json"
+    },
+    {
+      "$ref": "../tags/EnumerationExtension.json"
+    }
+  ],
+  "params": [
+    {
+      "name": "account_id",
+      "summary": "The owner account id",
+      "schema": {
+        "$ref": "../schemas/AccountId.json"
+      },
+      "required": true
+    },
+    {
+      "name": "from_index",
+      "summary": "The starting pagination index. Defaults to 0.",
+      "schema": {
+        "$ref": "../schemas/PaginationFromIndex.json"
+      },
+      "required": false
+    },
+    {
+      "name": "limit",
+      "summary": "The ending pagination index. Defaults to unlimited, could run out of gas if collection is large.",
+      "schema": {
+        "$ref": "../schemas/PaginationLimit.json"
+      },
+      "required": false
+    }
+  ],
+  "result": {
+    "name": "MtTokensByOwnerResult",
+    "summary": "Returns a paginated list of all tokens owned by this account, and an empty array if there are no tokens.",
+    "schema": {
+      "$ref": "../schemas/MTTokens.json"
+    },
+    "required": true
+  }
+}

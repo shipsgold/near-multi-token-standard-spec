@@ -39,6 +39,15 @@
             "$ref": "./methods/mt_metadata_token_all.json"
         },
         {
+            "$ref": "./methods/mt_tokens.json"
+        },
+        {
+            "$ref": "./methods/mt_tokens_by_owner.json"
+        },
+        {
+            "$ref": "./methods/mt_tokens_base_metadata.json"
+        },
+        {
             "$ref": "./methods/mt_approve.json"
         },
         {
