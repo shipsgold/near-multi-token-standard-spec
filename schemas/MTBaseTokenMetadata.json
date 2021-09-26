@@ -1,50 +1,48 @@
 {
-  "title": "BaseTokenMetadata",
+  "title": "MTBaseTokenMetadata",
   "description": "Metadata for tokens at class level",
   "type": "object",
   "properties": {
     "name": {
-      "title": "BaseTokenMetadataName",
+      "title": "MTBaseTokenMetadataName",
       "type": "string",
       "description": "ex. 'Silver Swords' or 'Metaverse 3'"
     },
     "id": {
-      "title": "BaseTokenMetadataId",
-      "type": "string",
-      "description": "a unique identifier for the metadata"
+      "$ref" :"./MTBaseTokenMetadataId.json"
     },
     "symbol": {
-      "title": "BaseTokenMetadataSymbol",
+      "title": "MTBaseTokenMetadataSymbol",
       "type": "string",
       "description": "ex. MOCHI"
     },
     "icon": {
-      "title": "BaseTokenMetadataIcon",
+      "title": "MTBaseTokenMetadataIcon",
       "type": "string",
       "description": "Data URL"
     },
     "decimals": {
-      "title": "BaseTokenMetadataDecimals",
+      "title": "MTBaseTokenMetadataDecimals",
       "type": "string",
       "description": "number of decimals for the token useful for FT related tokens"
     },
     "base_uri": {
-      "title": "BaseTokenMetadataBaseUri",
+      "title": "MTBaseTokenMetadataBaseUri",
       "type": "string",
       "description": "entralized gateway known to have reliable access to decentralized storage assets referenced by `reference` or `media` URLs"
     },
     "reference": {
-      "title": "BaseTokenMetadataReference",
+      "title": "MTBaseTokenMetadataReference",
       "type": "string",
       "description":"URL to a JSON file with more info" 
     },
     "reference_hash": {
-      "title": "BaseTokenMetadataReferenceHash",
+      "title": "MTBaseTokenMetadataReferenceHash",
       "type": "string",
       "description": "Base64-encoded sha256 hash of JSON from reference field. Required if `reference` is included."
     },
     "copies": {
-      "title": "BaseTokenMetadataCopies",
+      "title": "MTBaseTokenMetadataCopies",
       "type": "number",
       "description": "number of copies of this set of metadata in existence when token was minted."
     }

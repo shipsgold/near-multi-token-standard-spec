@@ -1,0 +1,37 @@
+{
+  "name": "mt_metadata_token_all",
+  "summary": "Retrieve all the metadata associated with the token ids.",
+  "description": "Retrieve all the metadata associated with the token ids.",
+  "tags": [
+    {
+      "$ref": "../tags/view.json"
+    },
+    {
+      "$ref": "../tags/MetadataExtension.json"
+    }
+  ],
+  "params": [
+    {
+      "name": "token_ids",
+      "summary": "The TokenIds to retreive metadata by",
+      "description": "The TokenIds to retreive metadata by",
+      "schema": {
+        "$ref": "../schemas/TokenIds.json"
+      },
+      "required": true
+    }
+  ],
+  "result": {
+    "name": "MtMetadataTokenAllResult",
+    "description": "Returns Token metadta requested corresponding to token id",
+    "schema": {
+      "title": "TokenMetadata",
+      "type": "array",
+      "items": [
+        {
+          "$ref": "../schemas/MTAllTokenMetadata.json"
+        }
+      ]
+    }
+  }
+}

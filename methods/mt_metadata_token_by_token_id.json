@@ -25,10 +25,10 @@
     "name": "MtTokenMetadataByTokenIdResult",
     "description": "Returns Token metadta requested corresponding to token id",
     "schema": {
-      "title": "TokenMetadata",
+      "title": "MTTokenMetadata",
       "type":"array",
       "items":[{
-      "$ref": "../schemas/TokenMetadata.json"
+      "$ref": "../schemas/MTTokenMetadata.json"
       }]
     }
   }

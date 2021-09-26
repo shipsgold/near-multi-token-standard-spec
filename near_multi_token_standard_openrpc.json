@@ -24,6 +24,21 @@
             "$ref": "./methods/mt_resolve_transfer.json"
         },
         {
+            "$ref": "./methods/mt_metadata_contract.json"
+        },
+        {
+            "$ref": "./methods/mt_metadata_base_by_token_id.json"
+        },
+        {
+            "$ref": "./methods/mt_metadata_base_by_metadata_id.json"
+        },
+        {
+            "$ref": "./methods/mt_metadata_token_by_token_id.json"
+        },
+        {
+            "$ref": "./methods/mt_metadata_token_all.json"
+        },
+        {
             "$ref": "./methods/mt_approve.json"
         },
         {

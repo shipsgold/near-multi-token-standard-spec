@@ -1,0 +1,5 @@
+{
+  "title": "MTBaseTokenMetadataId",
+  "description": "A unique identifier for the top level data associted with a token.",
+  "type": "string"
+}

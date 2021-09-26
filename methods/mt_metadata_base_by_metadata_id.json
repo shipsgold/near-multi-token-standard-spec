@@ -1,0 +1,31 @@
+{
+  "name": "mt_metadata_base_by_metadata_id",
+  "summary": "Retrieves base level token metadata by base token metadata ids",
+  "description": "Retrieves base level token metadata by base token meatadata ids",
+  "tags": [
+    {
+      "$ref": "../tags/view.json"
+    }, {
+      "$ref": "../tags/MetadataExtension.json"
+    }
+  ],
+  "params": [{
+      "name": "base_metadata_ids",
+      "summary": "The base token metadata ids to retreive metadata by",
+      "description": "The base token metadata ids to retreive metadata by",
+      "schema": {
+        "$ref": "../schemas/MTBaseTokenMetadataId.json"
+      },
+      "required": true
+    }
+  ],
+  "result": {
+    "name": "MtBaseTokenMetadataByTokenIdResult",
+    "summary": "MTBaseTokenMetadata for the given base token metadata ids specified",
+    "description": "MTBaseTokenMetadata for the token ids specified",
+    "schema": {
+      "$ref": "../schemas/MTBaseTokenMetadata.json"
+    }
+  }
+
+}

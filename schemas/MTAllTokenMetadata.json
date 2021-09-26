@@ -1,0 +1,14 @@
+{
+  "title": "AllTokenMetadata",
+  "description": "All the token metadata associated with a token",
+  "type": "object",
+  "properties": {
+    "base": {
+      "$ref": "./MTBaseTokenMetadata.json"
+    },
+    "token": {
+      "$ref": "./MTTokenMetadata.json"
+    }
+  },
+  "required": ["base", "token"]
+}
