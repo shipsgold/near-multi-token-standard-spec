@@ -1,0 +1,1333 @@
+{
+  "openrpc": "1.0.0",
+  "info": {
+    "title": "Near Multi Token Standard Spec",
+    "version": "1.0.0"
+  },
+  "methods": [
+    {
+      "name": "mt_transfer",
+      "summary": "Transfers tokens from one account to another",
+      "description": "Transfer tokens from one account to another. A basic token transfer. Transfer a token or tokens given a token_id. The token id can correspond to either a NonFungibleToken or FungibleToken  - this is differentiated by the implementation.",
+      "tags": [
+        {
+          "name": "change",
+          "description": "change method"
+        }
+      ],
+      "params": [
+        {
+          "name": "receiver_id",
+          "summary": "Receiving account id",
+          "description": "The valid NEAR account receiving the token",
+          "schema": {
+            "title": "AccountId",
+            "type": "string",
+            "description": "AccountId for the near account"
+          },
+          "required": true
+        },
+        {
+          "name": "token_id",
+          "summary": "The TokenId to transfer",
+          "description": "The TokenId to transfer",
+          "schema": {
+            "title": "TokenId",
+            "description": "Token identifier that corresponds to an id",
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "name": "amount",
+          "summary": "The amount of tokens to transfer for token_id",
+          "description": "The amount of tokens to transfer for token_id. The amount of tokens to transfer must be 1 or greater",
+          "schema": {
+            "$ref": "#/methods/1/result/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "approval_id",
+          "summary": "Expected approval ID",
+          "description": "Expected approval ID. A number smaller than 2^53, and therefore representable as JSON.",
+          "schema": {
+            "title": "ApprovalId",
+            "description": "expected approval ID. A number smaller than 2^53",
+            "type": "number"
+          },
+          "required": false
+        },
+        {
+          "name": "memo",
+          "summary": "Memo message to describe operation",
+          "description": "For use cases that may benefit from indexing or providing information for a transfer",
+          "schema": {
+            "title": "Memo",
+            "description": "A message to describe an operation",
+            "type": "string"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtTransferResult",
+        "schema": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "name": "mt_transfer_call",
+      "description": "Transfer tokens from one account to another contract. Transfer token/s and call a method on a receiver contract. A successful workflow will end in a success execution outcome to the callback on the MultiToken contract at the method `mt_resolve_transfer`. You can think of this as being similar to attaching NEAR tokens as a `deposit` to a function call. It allows you to attach any FungibleToken or NonFungibleToken in a call to a receiver contract.  ",
+      "summary": "Transfers tokens from one account to another contract",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        }
+      ],
+      "params": [
+        {
+          "name": "receiver_id",
+          "summary": "Receiving account id",
+          "description": "The valid NEAR account receiving the token",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "token_id",
+          "summary": "The TokenId to transfer",
+          "description": "The TokenId to transfer",
+          "schema": {
+            "$ref": "#/methods/0/params/1/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "amount",
+          "summary": "The amount of tokens to transfer for token_id",
+          "description": "The amount of tokens to transfer for token_id. The amount of tokens to transfer must be 1 or greater",
+          "schema": {
+            "$ref": "#/methods/1/result/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "approval_id",
+          "summary": "Expected approval ID",
+          "description": "Expected approval ID. A number smaller than 2^53, and therefore representable as JSON.",
+          "schema": {
+            "$ref": "#/methods/0/params/3/schema"
+          },
+          "required": false
+        },
+        {
+          "name": "memo",
+          "summary": "Memo message to describe operation",
+          "description": "For use cases that may benefit from indexing or providing information for a transfer",
+          "schema": {
+            "$ref": "#/methods/0/params/4/schema"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtTransferCallResult",
+        "summary": "The amount optionally returned to sender",
+        "description": "The amount returned to the sender, if resolve implmented",
+        "schema": {
+          "title": "U128",
+          "type": "string",
+          "description": "U128 integer as string"
+        },
+        "required": false
+      }
+    },
+    {
+      "name": "mt_batch_transfer",
+      "description": "Batch token transfer. Transfer a tokens given token_ids and amounts. The token ids can correspond to either Non-Fungible Tokens or Fungible Tokens or some combination of the two. The token ids are used to segment the types on a per contract implementation basis.",
+      "summary": "Transfer many tokens by ids and amounts in batch.",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        }
+      ],
+      "params": [
+        {
+          "name": "receiver_id",
+          "summary": "Receiving account id",
+          "description": "The valid NEAR account receiving the token",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          }
+        },
+        {
+          "name": "token_ids",
+          "summary": "Token ids to transfer",
+          "description": "Token ids to transfer in batch",
+          "schema": {
+            "title": "TokenIds",
+            "type": "array",
+            "items": [
+              {
+                "$ref": "#/methods/0/params/1/schema"
+              }
+            ]
+          }
+        },
+        {
+          "name": "amounts",
+          "summary": "The amount of tokens per token id to transfer",
+          "description": "The amount of tokens per token id to transfer. The ordering is a one to one matching with the token id. All amounts must be an amount that is 1 or more",
+          "schema": {
+            "title": "Amounts",
+            "type": "array",
+            "items": [
+              {
+                "$ref": "#/methods/1/result/schema"
+              }
+            ]
+          }
+        },
+        {
+          "name": "approval_ids",
+          "summary": "Optional Expected approval IDs, where the approval ids correspond to the token ids specified. Null is an option if a token id does not require an approval ID.",
+          "description": "Optional Expected approval IDs, where the approval ids correspond to the token ids specified. Null is an option if a token id does not require an approval ID, Expected approval ID. A number smaller than 2^53, and therefore representable as JSON.",
+          "schema": {
+            "title": "ApprovalIds",
+            "type": "array",
+            "items": [
+              {
+                "oneOf": [
+                  {
+                    "$ref": "#/methods/0/params/3/schema"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            ]
+          },
+          "required": false
+        },
+        {
+          "name": "memo",
+          "summary": "Memo message to describe operation",
+          "description": "For use cases that may benefit from indexing or providing information for a transfer",
+          "schema": {
+            "$ref": "#/methods/0/params/4/schema"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtBatchTransferResult",
+        "schema": {
+          "type": "null"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "mt_batch_transfer_call",
+      "summary": "Transfer many tokens by ids and amounts in batch to a contract.",
+      "description": "Transfer many tokens by ids and amounts in batch to a contract. Transfer tokens given token_ids and amounts. The token ids can correspond to either Non-Fungible Tokens or Fungible Tokens or some combination of the two. The token ids are used to segment the types on a per contract implementation basis.",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        }
+      ],
+      "params": [
+        {
+          "name": "receiver_id",
+          "summary": "Receiving account id",
+          "description": "The valid NEAR account receiving the token",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          }
+        },
+        {
+          "name": "token_ids",
+          "summary": "Token ids to transfer",
+          "description": "Token ids to transfer in batch",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          }
+        },
+        {
+          "name": "amounts",
+          "summary": "The amount of tokens per token id to transfer",
+          "description": "The amount of tokens per token id to transfer. The ordering is a one to one matching with the token id. All amounts must be an amount that is 1 or more",
+          "schema": {
+            "$ref": "#/methods/2/params/2/schema"
+          }
+        },
+        {
+          "name": "approval_ids",
+          "summary": "Optional Expected approval IDs, where the approval ids correspond to the token ids specified. Null is an option if a token id does not require an approval ID.",
+          "description": "Optional Expected approval IDs, where the approval ids correspond to the token ids specified. Null is an option if a token id does not require an approval ID, Expected approval ID. A number smaller than 2^53, and therefore representable as JSON.",
+          "schema": {
+            "$ref": "#/methods/2/params/3/schema"
+          },
+          "required": false
+        },
+        {
+          "name": "memo",
+          "summary": "Memo message to describe operation",
+          "description": "For use cases that may benefit from indexing or providing information for a transfer",
+          "schema": {
+            "$ref": "#/methods/0/params/4/schema"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtBatchTransferCallResult",
+        "schema": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/methods/1/result/schema"
+            }
+          ]
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "mt_on_transfer",
+      "summary": "A reciever interface to take some action after receiving Multi tokens",
+      "description": "A reciever interface to take some action after receiving Multi tokens. Contract MUST restrict calls to this funtion to a set of whitelisted MultiToken to prevent misuse.",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        }
+      ],
+      "params": [
+        {
+          "name": "sender_id",
+          "summary": "sender of `mt_transfer_call`",
+          "description": "sender of `mt_transfer_call`",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "previous_owner_id",
+          "summary": "The account that owned the tokens prior to it being transferred",
+          "description": "The account that owned the tokens prior to it being transferred",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "token_ids",
+          "summary": "The `token_ids` argument given to `mt_transfer_call`",
+          "description": "The `token_ids` argument given to `mt_transfer_call`",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          }
+        },
+        {
+          "name": "amounts",
+          "summary": "The amount of tokens per token id to transfer",
+          "description": "The amount of tokens per token id to transfer. The ordering is a one to one matching with the token id. All amounts must be an amount that is 1 or more",
+          "schema": {
+            "$ref": "#/methods/2/params/2/schema"
+          }
+        },
+        {
+          "name": "msg",
+          "summary": "The information necessary for this contract to know how to process the request.",
+          "description": "The information necessary for this contract to know how to process the request. This may include method names or arguments or json",
+          "schema": {
+            "title": "Msg",
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "MtOnTransferResult",
+        "summary": "Returns a vector of amounts for the tokens that were unused to be returned to `sender_id`",
+        "description": "This function is implemented on the receving contract. As mentioned, the `msg` argument contains information necessary for the receiving contract to know how to process the request. This may include method names and/or arguments. Returns a value, or a promise which resolves with a value. The value is the number of unused tokens in string form. For instance, if `amount` is 10 but only 9 are needed, it will return 1.",
+        "schema": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/methods/1/result/schema"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "mt_resolve_transfer",
+      "summary": "Used when MultiTokens are transferred using `mt_transfer_call`",
+      "description": "Used when MultiTokens are transferred using `mt_transfer_call`. This is the method that's called after `mt_on_transfer` implemented on the multitoken contract",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        },
+        {
+          "name": "ApprovalManagement",
+          "description": "Approval Management Extension"
+        }
+      ],
+      "params": [
+        {
+          "name": "sender_id",
+          "summary": "sender of `mt_transfer_call`",
+          "description": "sender of `mt_transfer_call`",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "previous_owner_id",
+          "summary": "The account that owned the tokens prior to it being transferred with `mt_transfer_call`",
+          "description": "The account that owned the tokens prior to it being transferred",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "receiver_id",
+          "summary": "The `receiver_id` argument of `mt_transfer_call`",
+          "description": "The `receiver_id` argument of `mt_transfer_call`, the account being transfered to",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "token_ids",
+          "summary": "The `token_ids` argument given to `mt_transfer_call`",
+          "description": "The `token_ids` argument given to `mt_transfer_call`",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          }
+        },
+        {
+          "name": "amounts",
+          "summary": "The amount of tokens per token id to transfer",
+          "description": "The amount of tokens per token id to transfer. The ordering is a one to one matching with the token id. All amounts must be an amount that is 1 or more",
+          "schema": {
+            "$ref": "#/methods/2/params/2/schema"
+          }
+        },
+        {
+          "name": "approved_account_ids",
+          "summary": "Approved accounts in case of revert.",
+          "description": "Approved accounts in case of revert. In this case it may be multiple sets of approvals . If specified the length and order must correspond to token_ids",
+          "schema": {
+            "type": "array",
+            "items": [
+              {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "title": "AccountIds",
+                    "type": "array",
+                    "items": [
+                      {
+                        "$ref": "#/methods/0/params/0/schema"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtResolveTransferResult",
+        "summary": "Returns the amount of how many total tokens were spent by `sender_id`, corresponding to the `token_id`.Returns a vector of  amounts for the tokens that should be returned to `sender_id`",
+        "description": "Returns the amount of how many total tokens were spent by `sender_id`, corresponding to the `token_id`.Returns a vector of  amounts for the tokens that should be returned to `sender_id`",
+        "schema": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/methods/1/result/schema"
+            }
+          ]
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "mt_metadata_contract",
+      "summary": "Get contract level metadata",
+      "description": "Get contract level metadata",
+      "tags": [
+        {
+          "name": "View",
+          "description": "View only methods"
+        },
+        {
+          "name": "MetadataExtension",
+          "description": "Metadata Extension for representing token meta data"
+        }
+      ],
+      "params": [],
+      "result": {
+        "name": "MTContractMetadataResult",
+        "summary": "Contract metadata",
+        "schema": {
+          "title": "MTContractMetadata",
+          "type": "object",
+          "properties": {
+            "spec": {
+              "title": "Spec",
+              "type": "string"
+            },
+            "name": {
+              "title": "ContractName",
+              "type": "string"
+            }
+          },
+          "required": [
+            "spec",
+            "name"
+          ]
+        }
+      }
+    },
+    {
+      "name": "mt_metadata_base_by_token_id",
+      "summary": "Retrieves base level token metadata by token ids",
+      "description": "Retrieves base level token metadata by token ids",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/6/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The TokenIds to retreive metadata by",
+          "description": "The TokenIds to retreive metadata by",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "MtBaseTokenMetadataByTokenIdResult",
+        "summary": "MTBaseTokenMetadata for the token ids specified",
+        "description": "MTBaseTokenMetadata for the token ids specified",
+        "schema": {
+          "title": "MTBaseTokenMetadata",
+          "description": "Metadata for tokens at class level",
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "MTBaseTokenMetadataName",
+              "type": "string",
+              "description": "ex. 'Silver Swords' or 'Metaverse 3'"
+            },
+            "id": {
+              "$ref": "#/methods/8/params/0/schema"
+            },
+            "symbol": {
+              "title": "MTBaseTokenMetadataSymbol",
+              "type": "string",
+              "description": "ex. MOCHI"
+            },
+            "icon": {
+              "title": "MTBaseTokenMetadataIcon",
+              "type": "string",
+              "description": "Data URL"
+            },
+            "decimals": {
+              "title": "MTBaseTokenMetadataDecimals",
+              "type": "string",
+              "description": "number of decimals for the token useful for FT related tokens"
+            },
+            "base_uri": {
+              "title": "MTBaseTokenMetadataBaseUri",
+              "type": "string",
+              "description": "entralized gateway known to have reliable access to decentralized storage assets referenced by `reference` or `media` URLs"
+            },
+            "reference": {
+              "title": "MTBaseTokenMetadataReference",
+              "type": "string",
+              "description": "URL to a JSON file with more info"
+            },
+            "reference_hash": {
+              "title": "MTBaseTokenMetadataReferenceHash",
+              "type": "string",
+              "description": "Base64-encoded sha256 hash of JSON from reference field. Required if `reference` is included."
+            },
+            "copies": {
+              "title": "MTBaseTokenMetadataCopies",
+              "type": "number",
+              "description": "number of copies of this set of metadata in existence when token was minted."
+            }
+          },
+          "required": [
+            "name",
+            "id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "mt_metadata_base_by_metadata_id",
+      "summary": "Retrieves base level token metadata by base token metadata ids",
+      "description": "Retrieves base level token metadata by base token meatadata ids",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/6/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "base_metadata_ids",
+          "summary": "The base token metadata ids to retreive metadata by",
+          "description": "The base token metadata ids to retreive metadata by",
+          "schema": {
+            "title": "MTBaseTokenMetadataId",
+            "description": "A unique identifier for the top level data associted with a token.",
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "MtBaseTokenMetadataByTokenIdResult",
+        "summary": "MTBaseTokenMetadata for the given base token metadata ids specified",
+        "description": "MTBaseTokenMetadata for the token ids specified",
+        "schema": {
+          "$ref": "#/methods/7/result/schema"
+        }
+      }
+    },
+    {
+      "name": "mt_metadata_by_token_id",
+      "summary": "Retrieve token metadata by token ids specified",
+      "description": "Retrieve token metadata by token ids specified. Number of token ids requested is limited to amount of gas",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/6/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The TokenIds to retreive metadata by",
+          "description": "The TokenIds to retreive metadata by",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "MtTokenMetadataByTokenIdResult",
+        "description": "Returns Token metadta requested corresponding to token id",
+        "schema": {
+          "title": "MTTokenMetadata",
+          "type": "array",
+          "items": [
+            {
+              "title": "MTTokenMetadata",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "title": "MTTokenMetadataTitle",
+                  "description": "ex. Parcel #5055"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "MTTokenMetadataDesc",
+                  "description": "free-form description"
+                },
+                "media": {
+                  "type": "string",
+                  "title": "MTTokenMetadataMedia",
+                  "description": "URL to associated media, preferably to decentralized, content-addressed storage"
+                },
+                "media_hash": {
+                  "type": "string",
+                  "title": "MTTokenMetadataMediaHash",
+                  "description": "Base64-encoded sha256 hash of content referenced by the `media` field. Required if `media` is included."
+                },
+                "issued_at": {
+                  "type": "string",
+                  "title": "MTTokenMetadataIssuedAt",
+                  "description": "When token was issued or minted, Unix epoc in milliseconds"
+                },
+                "expires_at": {
+                  "type": "string",
+                  "title": "MTTokenMetadataExpiresAt",
+                  "description": "When token expires, Unix epoch in milliseconds"
+                },
+                "starts_at": {
+                  "type": "string",
+                  "title": "MTTokenMetadataStartsAt",
+                  "description": "When token starts being valid, Unix epoch in milliseconds"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "title": "MTTokenMetadataUpdatedAt",
+                  "description": "When token was last updated, Unix epoch in milliseconds"
+                },
+                "extra": {
+                  "type": "string",
+                  "title": "MTTokenMetadataExtra",
+                  "description": "Anything extra the MT wants to store on-chain. Can be stringified JSON."
+                },
+                "reference": {
+                  "type": "string",
+                  "title": "MTTokenMetadataReference",
+                  "description": "URL to an off-chain JSON file with more info."
+                },
+                "reference_hash": {
+                  "type": "string",
+                  "title": "MTTokenMetadataReferenceHash",
+                  "description": "Base64-encoded sha256 hash of JSON from reference field. Required if `reference` is included."
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "mt_metadata_token_all",
+      "summary": "Retrieve all the metadata associated with the token ids.",
+      "description": "Retrieve all the metadata associated with the token ids.",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/6/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The TokenIds to retreive metadata by",
+          "description": "The TokenIds to retreive metadata by",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "MtMetadataTokenAllResult",
+        "description": "Returns Token metadta requested corresponding to token id",
+        "schema": {
+          "title": "TokenMetadata",
+          "type": "array",
+          "items": [
+            {
+              "title": "AllTokenMetadata",
+              "description": "All the token metadata associated with a token",
+              "type": "object",
+              "properties": {
+                "base": {
+                  "$ref": "#/methods/7/result/schema"
+                },
+                "token": {
+                  "$ref": "#/methods/9/result/schema/items/0"
+                }
+              },
+              "required": [
+                "base",
+                "token"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "mt_tokens",
+      "summary": "Get a list of all tokens. ",
+      "description": "Get a list of all tokens. Returning a list of `MTToken` with respect to pagination.",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "name": "EnumerationExtension",
+          "description": "The optional Enumeration standard for MultiToken"
+        }
+      ],
+      "params": [
+        {
+          "name": "from_index",
+          "schema": {
+            "title": "PaginationFromIndex",
+            "description": "PaginationFromIndex",
+            "type": "number"
+          }
+        },
+        {
+          "name": "Limit",
+          "schema": {
+            "title": "PaginationLimit",
+            "description": "PaginationLimit",
+            "type": "number"
+          }
+        }
+      ],
+      "result": {
+        "name": "MtTokensResult",
+        "summary": "List of all tokens in the contract truncated by the pagination limits.",
+        "description": "List of all tokens in the contract truncated by the pagination limits. An empty array represents no tokens",
+        "schema": {
+          "title": "MTTokens",
+          "type": "array",
+          "items": [
+            {
+              "title": "MTToken",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "$ref": "#/methods/0/params/1/schema"
+                },
+                "metadata": {
+                  "type": "object",
+                  "properties": {
+                    "base_metadata_id": {
+                      "$ref": "#/methods/8/params/0/schema"
+                    },
+                    "token_metadata": {
+                      "$ref": "#/methods/9/result/schema/items/0"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "mt_tokens_by_owner",
+      "summary": "Get list of all tokens owned by a given account",
+      "description": "Get list of all tokens owned by a given account",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/11/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "account_id",
+          "summary": "The owner account id",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "from_index",
+          "summary": "The starting pagination index. Defaults to 0.",
+          "schema": {
+            "$ref": "#/methods/11/params/0/schema"
+          },
+          "required": false
+        },
+        {
+          "name": "limit",
+          "summary": "The ending pagination index. Defaults to unlimited, could run out of gas if collection is large.",
+          "schema": {
+            "$ref": "#/methods/11/params/1/schema"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtTokensByOwnerResult",
+        "summary": "Returns a paginated list of all tokens owned by this account, and an empty array if there are no tokens.",
+        "schema": {
+          "$ref": "#/methods/11/result/schema"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "mt_tokens_base_metadata",
+      "summary": "Get list of all base metadata for the contract.",
+      "description": "Get list of all base token metadata for the contract. Useful for understanding what tokens a contract holds.",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/11/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "from_index",
+          "summary": "The starting pagination index. Defaults to 0.",
+          "schema": {
+            "$ref": "#/methods/11/params/0/schema"
+          },
+          "required": false
+        },
+        {
+          "name": "limit",
+          "summary": "The ending pagination index. Defaults to unlimited, could run out of gas if collection is large.",
+          "schema": {
+            "$ref": "#/methods/11/params/1/schema"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtTokensBaseMetadataResult",
+        "summary": "An array of MTBaseTokenMetdata objects as described in metadata extension, and an empty array if there are no tokens",
+        "schema": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/methods/7/result/schema"
+            }
+          ]
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "mt_approve",
+      "summary": "Add an approved account for a specific set of tokens",
+      "description": "Add an approved account for a specific set of tokens",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        },
+        {
+          "$ref": "#/methods/5/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The token ids for which to add an approval",
+          "description": "The token ids for which to add an approval",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "amounts",
+          "summary": "The corresponding token_id amounts to add to `approvals`",
+          "description": "The corresponding token_id amounts to add to `approvals`",
+          "schema": {
+            "$ref": "#/methods/2/params/2/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "account_id",
+          "summary": "The account to add to approvals",
+          "description": "The account to add to approvals",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          }
+        },
+        {
+          "name": "msg",
+          "summary": "optional string to be passed to `mt_on_approve`",
+          "description": "optional string to be passed to `mt_on_approve`",
+          "schema": {
+            "$ref": "#/methods/4/params/4/schema"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtApproveResult",
+        "summary": "Void, if no `msg` given.",
+        "description": "Void, if no `msg` given. Otherwise, returns promise call to `mt_on_approve`, which can resolve with whatever it wants.",
+        "schema": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "name": "mt_revoke",
+      "summary": "Revoke an approved account for a specific token",
+      "description": "Revoke an approved account for a specific token",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        },
+        {
+          "$ref": "#/methods/5/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The token ids for which to revoke approvals",
+          "description": "The token ids for which to revoke approvals",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "account_id",
+          "summary": "The account to add to approvals",
+          "description": "The account to add to approvals",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          }
+        }
+      ],
+      "result": {
+        "name": "MtRevokeResult",
+        "schema": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "name": "mt_revoke_all",
+      "summary": "Revoke all approved accounts for a specific token.",
+      "description": "Revoke all approved accounts for a specific token.  Caller of the method must attach a deposit of 1 yoctoⓃ for security purposes",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        },
+        {
+          "$ref": "#/methods/5/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The token ids for which to revoke all approvals",
+          "description": "The token ids for which to revoke all approvals",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "MtRevokeAllResult",
+        "schema": {
+          "type": "null"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "mt_is_approved",
+      "summary": "Check if tokens are approved for transfer by a given account, optionally checking approval_id",
+      "description": "Check if tokens are approved for transfer by a given account, optionally checking approval_id",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/5/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The token ids for which to check approval",
+          "description": "The token ids for which to check approval",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "approved_account_id",
+          "summary": "the account to check the existence of in `approvals`",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          }
+        },
+        {
+          "name": "amounts",
+          "summary": "specify the positionally corresponding amount for the token_id that at least must be approved ",
+          "schema": {
+            "$ref": "#/methods/2/params/2/schema"
+          }
+        },
+        {
+          "name": "approval_id",
+          "summary": "an optional approval ID to check against current approval ID for given account",
+          "schema": {
+            "$ref": "#/methods/0/params/3/schema"
+          }
+        }
+      ],
+      "result": {
+        "name": "MtApprovedResult",
+        "summary": "returns state of the approval for tokens given the approved_acccount_id",
+        "description": "returns state of the approval for tokens given the approved_acccount_id",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "mt_storage_balance_bounds",
+      "summary": "Returns the minimum and maximum allowe balance amounts to interact with this contract",
+      "description": "Returns the minimum and maximum allowe balance amounts to interact with this contract",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "name": "StorageManagement",
+          "description": "Storage Management Extension Tag"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "Token storage ids to pay for",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "account_id",
+          "summary": "Account to allocate storage for",
+          "description": "Account to allocate storage for",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtStorageBalanceBounds",
+        "summary": "min` is the amount of tokens required to start",
+        "description": "This will  be returned for the method `storage_balance_bounds`. Both `min` and `max` are string representations of unsigned 128-bit integers.`min` is the amount of tokens required to start using this contract at all (eg to register with the contract). If a new contract user attaches `min` NEAR to a `storage_deposit` call, subsequent calls to `storage_balance_of` for this user must show their `total` equal to `min` and `available=0` .  A contract may implement `max` equal to `min` if it only charges for initial registration, and does not adjust per-user storage over time. A contract which implements `max` must refund deposits that would increase a user's storage balance beyond this amount.",
+        "schema": {
+          "title": "StorageBalanceBounds",
+          "type": "object",
+          "properties": {
+            "min": {
+              "$ref": "#/methods/1/result/schema"
+            },
+            "max": {
+              "$ref": "#/methods/1/result/schema"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "mt_storage_balance_of",
+      "summary": "Returns the storage balance of an account for set of token_ids",
+      "description": "Returns the storage balance of an account for set of token_ids. If the `account_id` is not registered it will return `null`",
+      "tags": [
+        {
+          "$ref": "#/methods/6/tags/0"
+        },
+        {
+          "$ref": "#/methods/18/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The tokens to withdraw storage from",
+          "description": "The tokens to withdraw storage from",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "MtStorageBalanceOfResult",
+        "summary": "Storage balance of the `account_id`",
+        "description": "Storage balance of the `account_id`",
+        "schema": {
+          "title": "StorageBalance",
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/methods/1/result/schema"
+            },
+            "available": {
+              "$ref": "#/methods/1/result/schema"
+            }
+          },
+          "required": [
+            "total",
+            "available"
+          ]
+        },
+        "required": false
+      }
+    },
+    {
+      "name": "mt_storage_deposit",
+      "summary": "Payable method that receives an attached deposit of Ⓝ for a given account",
+      "description": "Payable method that receives an attached deposit of Ⓝ for a given account. ",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        },
+        {
+          "$ref": "#/methods/18/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "Token storage ids to pay for",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "account_id",
+          "summary": "Account to allocate storage for",
+          "description": "Account to allocate storage for",
+          "schema": {
+            "$ref": "#/methods/0/params/0/schema"
+          },
+          "required": false
+        },
+        {
+          "name": "registration_only",
+          "summary": "Registration flag that if true will refund above minimum balance if accound didn't exist and full deposit if it exists.",
+          "description": "Registration flag that if true will refund above minimum balance if accound didn't exist and full deposit if it exists.",
+          "schema": {
+            "type": "boolean"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtStorageDepositResult",
+        "summary": "Returns the `StorageBalance` showing updated balances",
+        "description": "Returns the `StorageBalance` showing updated balances",
+        "schema": {
+          "$ref": "#/methods/19/result/schema"
+        }
+      }
+    },
+    {
+      "name": "mt_storage_unregister",
+      "summary": "Unregister the predecessor account and return the storage NEAR deposit back",
+      "description": "Unregister the predecessor account and return the storage NEAR deposit back. Requires 1yoctoNEAR attached balance to prevent function-call access-key call",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        },
+        {
+          "$ref": "#/methods/18/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "Token storage ids to pay for",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          },
+          "required": true
+        },
+        {
+          "name": "force",
+          "summary": "The force flag set to true will ignore account balances and burn the tokens and close the account",
+          "description": "The force flag set to true will ignore account balances and burn the tokens and close the account",
+          "schema": {
+            "type": "boolean"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "MtStorageUnregisterResult",
+        "summary": "An array of booleans corresponding to the `token_ids`. `false` if token was already unregistered true other wise",
+        "schema": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "mt_storage_withdraw",
+      "summary": "Withdraw specified amount of available Ⓝ for predecessor account.",
+      "description": "Withdraw specified amount of available Ⓝ for predecessor account. ",
+      "tags": [
+        {
+          "$ref": "#/methods/0/tags/0"
+        },
+        {
+          "$ref": "#/methods/18/tags/1"
+        }
+      ],
+      "params": [
+        {
+          "name": "token_ids",
+          "summary": "The tokens to withdraw storage from",
+          "description": "The tokens to withdraw storage from",
+          "schema": {
+            "$ref": "#/methods/2/params/1/schema"
+          }
+        },
+        {
+          "name": "amount",
+          "summary": "The amount of balance to refund",
+          "description": "The amount of balance to refund, if not specified then it's the total amount. Must require exactly 1 yoctoNEAR attached balance to prevent restricted function-call access-key call for wallet security.",
+          "schema": {
+            "$ref": "#/methods/1/result/schema"
+          }
+        }
+      ],
+      "result": {
+        "name": "MtStorageWithdrawResult",
+        "summary": "Returns the StorageBalance structure showing updated balances",
+        "schema": {
+          "$ref": "#/methods/19/result/schema"
+        },
+        "required": true
+      }
+    }
+  ]
+}
