@@ -1,0 +1,14 @@
+{
+  "name": "mt_metadata",
+  "summary": "Returns contract level metadata",
+  "description": "Returns contract level metadata",
+  "params": [],
+  "result": {
+    "name": "ContractMetadataResult",
+    "summary": "Contract metadata",
+    "schema": {
+      "$ref": "../schemas/ContractMetadata.json"
+    }
+  }
+
+}

@@ -1,0 +1,53 @@
+{
+  "title": "BaseTokenMetadata",
+  "description": "Metadata for tokens at class level",
+  "type": "object",
+  "properties": {
+    "name": {
+      "title": "BaseTokenMetadataName",
+      "type": "string",
+      "description": "ex. 'Silver Swords' or 'Metaverse 3'"
+    },
+    "id": {
+      "title": "BaseTokenMetadataId",
+      "type": "string",
+      "description": "a unique identifier for the metadata"
+    },
+    "symbol": {
+      "title": "BaseTokenMetadataSymbol",
+      "type": "string",
+      "description": "ex. MOCHI"
+    },
+    "icon": {
+      "title": "BaseTokenMetadataIcon",
+      "type": "string",
+      "description": "Data URL"
+    },
+    "decimals": {
+      "title": "BaseTokenMetadataDecimals",
+      "type": "string",
+      "description": "number of decimals for the token useful for FT related tokens"
+    },
+    "base_uri": {
+      "title": "BaseTokenMetadataBaseUri",
+      "type": "string",
+      "description": "entralized gateway known to have reliable access to decentralized storage assets referenced by `reference` or `media` URLs"
+    },
+    "reference": {
+      "title": "BaseTokenMetadataReference",
+      "type": "string",
+      "description":"URL to a JSON file with more info" 
+    },
+    "reference_hash": {
+      "title": "BaseTokenMetadataReferenceHash",
+      "type": "string",
+      "description": "Base64-encoded sha256 hash of JSON from reference field. Required if `reference` is included."
+    },
+    "copies": {
+      "title": "BaseTokenMetadataCopies",
+      "type": "number",
+      "description": "number of copies of this set of metadata in existence when token was minted."
+    }
+  },
+  "required": ["name", "id"]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "mt_revoke",
+  "summary": "Revoke an approved account for a specific token",
+  "description": "Revoke an approved account for a specific token",
+  "tags": [
+    {
+      "$ref": "../tags/change.json"
+    },
+    {
+      "$ref": "../tags/ApprovalManagement.json"
+    }
+  ],
+  "params": [
+    {
+      "name": "token_ids",
+      "summary": "The token ids for which to revoke approvals",
+      "description": "The token ids for which to revoke approvals",
+      "schema": {
+        "$ref": "../schemas/TokenIds.json"
+      },
+      "required": true
+    },
+    {
+      "name": "account_id",
+      "summary": "The account to add to approvals",
+      "description": "The account to add to approvals",
+      "schema": {
+        "$ref": "../schemas/AccountId.json"
+      }
+    }
+  ],
+  "result": {
+    "name": "MtRevokeResult",
+    "schema": {
+      "type": "null"
+    }
+  }
+}

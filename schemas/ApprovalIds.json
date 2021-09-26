@@ -3,7 +3,7 @@
   "type": "array",
   "items": [{
       "oneOf": [{
-        "$ref": "./ApprovalId"
+        "$ref": "./ApprovalId.json"
       },
      {
       "type": "null"

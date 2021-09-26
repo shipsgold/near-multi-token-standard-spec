@@ -12,7 +12,43 @@
             "$ref": "./methods/mt_transfer_call.json"
         },
         {
-            "$ref": "./methods/mt_transfer_batch.json"
+            "$ref": "./methods/mt_batch_transfer.json"
+        },
+        {
+            "$ref": "./methods/mt_batch_transfer_call.json"
+        },
+        {
+            "$ref": "./methods/mt_on_transfer.json"
+        },
+        {
+            "$ref": "./methods/mt_resolve_transfer.json"
+        },
+        {
+            "$ref": "./methods/mt_approve.json"
+        },
+        {
+            "$ref": "./methods/mt_revoke.json"
+        },
+        {
+            "$ref": "./methods/mt_revoke_all.json"
+        },
+        {
+            "$ref": "./methods/mt_is_approved.json"
+        },
+        {
+            "$ref": "./methods/mt_storage_balance_bounds.json"
+        },
+        {
+            "$ref": "./methods/mt_storage_balance_of.json"
+        },
+        {
+            "$ref": "./methods/mt_storage_deposit.json"
+        },
+        {
+            "$ref": "./methods/mt_storage_unregister.json"
+        },
+        {
+            "$ref": "./methods/mt_storage_withdraw.json"
         }
     ]
 }

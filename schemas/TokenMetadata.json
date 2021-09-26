@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "title": {
+    "type": "string",
+    "title": "TokenMetadataTitle",
+    "description": "ex. Parcel #5055"
+  },
+  "description": {
+    "type":"string",
+    "title": "TokenMetadataDesc",
+    "description": "free-form description"
+  }, 
+  "media": {
+    "type": "string",
+    "title": "TokenMetadataMedia",
+    "description":"URL to associated media, preferably to decentralized, content-addressed storage" 
+  },
+  "media_hash": {
+    "type": "string",
+    "title": "TokenMetadataMediaHash",
+    "description": "Base64-encoded sha256 hash of content referenced by the `media` field. Required if `media` is included."
+  },
+  "issued_at": {
+    "type": "string",
+    "title": "TokenMetadataIssuedAt",
+    "description": "When token was issued or minted, Unix epoc in milliseconds" 
+  },
+  "expires_at": {
+    "type": "string",
+    "title": "TokenMetadataExpiresAt",
+    "description": "When token expires, Unix epoch in milliseconds"
+  },
+  "starts_at": {
+    "type": "string",
+    "title": "TokenMetadataStartsAt",
+    "description": "When token starts being valid, Unix epoch in milliseconds"
+  },
+  "updated_at": {
+    "type": "string",
+    "title": "TokenMetadataUpdatedAt",
+    "description":"When token was last updated, Unix epoch in milliseconds" 
+  },
+  "extra": {
+    "type": "string",
+    "title": "TokenMetadataExtra",
+    "description": "Anything extra the MT wants to store on-chain. Can be stringified JSON."
+  },
+  "reference": {
+    "type": "string",
+    "title": "TokenMetadataReference",
+    "description": "URL to an off-chain JSON file with more info."
+  },
+  "reference_hash": {
+    "type": "string",
+    "title": "TokenMetadataReferenceHash",
+    "description": "Base64-encoded sha256 hash of JSON from reference field. Required if `reference` is included."
+  }
+}

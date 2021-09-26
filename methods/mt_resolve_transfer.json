@@ -1,0 +1,87 @@
+{
+  "name": "mt_resolve_transfer",
+  "summary": "Used when MultiTokens are transferred using `mt_transfer_call`",
+  "description": "Used when MultiTokens are transferred using `mt_transfer_call`. This is the method that's called after `mt_on_transfer` implemented on the multitoken contract",
+  "tags": [
+    {
+      "$ref": "../tags/change.json"
+    }, {
+      "$ref": "../tags/ApprovalManagement.json"
+    }
+  ],
+  "params": [
+    {
+      "name": "sender_id",
+      "summary": "sender of `mt_transfer_call`",
+      "description": "sender of `mt_transfer_call`",
+      "schema": {
+        "$ref": "../schemas/AccountId.json"
+      },
+      "required": true
+    },
+    {
+      "name": "previous_owner_id",
+      "summary": "The account that owned the tokens prior to it being transferred with `mt_transfer_call`",
+      "description": "The account that owned the tokens prior to it being transferred",
+      "schema": {
+        "$ref": "../schemas/AccountId.json"
+      },
+      "required": true
+    },
+    {
+      "name": "receiver_id",
+      "summary": "The `receiver_id` argument of `mt_transfer_call`",
+      "description": "The `receiver_id` argument of `mt_transfer_call`, the account being transfered to",
+      "schema": {
+        "$ref": "../schemas/AccountId.json"
+      },
+      "required": true
+    },
+    {
+      "name": "token_ids",
+      "summary": "The `token_ids` argument given to `mt_transfer_call`",
+      "description": "The `token_ids` argument given to `mt_transfer_call`",
+      "schema": {
+        "$ref": "../schemas/TokenIds.json"
+      }
+    },
+    {
+      "name": "amounts",
+      "summary": "The amount of tokens per token id to transfer",
+      "description": "The amount of tokens per token id to transfer. The ordering is a one to one matching with the token id. All amounts must be an amount that is 1 or more",
+      "schema": {
+        "$ref": "../schemas/Amounts.json"
+      }
+    },
+    {
+      "name": "approved_account_ids",
+      "summary": "Approved accounts in case of revert.",
+      "description": "Approved accounts in case of revert. In this case it may be multiple sets of approvals . If specified the length and order must correspond to token_ids",
+      "schema": {
+        "type":"array",
+        "items": [{
+          "oneOf": [{
+            "type":"null"
+          },{
+            "$ref": "../schemas/AccountIds.json"
+          }]
+        }]
+      },
+      "required": false
+    }
+  ],
+  "result": {
+    "name": "MtResolveTransferResult",
+    "summary": "Returns the amount of how many total tokens were spent by `sender_id`, corresponding to the `token_id`.Returns a vector of  amounts for the tokens that should be returned to `sender_id`",
+    "description": "Returns the amount of how many total tokens were spent by `sender_id`, corresponding to the `token_id`.Returns a vector of  amounts for the tokens that should be returned to `sender_id`",
+    "schema": {
+      "type": "array",
+      "items": [
+        {
+          "$ref": "../schemas/U128.json"
+        }
+      ]
+    },
+    "required": true 
+  }
+}

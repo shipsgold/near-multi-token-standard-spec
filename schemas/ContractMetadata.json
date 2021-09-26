@@ -1,0 +1,14 @@
+{
+  "title": "ContractMetadata",
+  "type": "object",
+  "properties": {
+    "spec": {
+      "$ref": "./Spec.json"
+    },
+    "name": {
+      "title": "ContractName",
+      "type": "string"
+    }
+  },
+  "required": ["spec", "name"] 
+}

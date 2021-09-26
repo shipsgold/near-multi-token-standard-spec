@@ -1,0 +1,35 @@
+{
+  "name": "mt_metadata_by_token_id",
+  "summary": "Retrieve token metadata by token ids specified",
+  "description": "Retrieve token metadata by token ids specified. Number of token ids requested is limited to amount of gas",
+  "tags": [
+    {
+      "$ref": "../tags/view.json"
+    }, 
+    {
+      "$ref": "../tags/MetadataExtension.json"
+    }
+  ],
+  "params":[
+    {
+      "name": "token_ids",
+      "summary": "The TokenIds to retreive metadata by",
+      "description": "The TokenIds to retreive metadata by",
+      "schema": {
+        "$ref": "../schemas/TokenIds.json"
+      },
+      "required": true
+    }
+  ],
+  "result": {
+    "name": "MtTokenMetadataByTokenIdResult",
+    "description": "Returns Token metadta requested corresponding to token id",
+    "schema": {
+      "title": "TokenMetadata",
+      "type":"array",
+      "items":[{
+      "$ref": "../schemas/TokenMetadata.json"
+      }]
+    }
+  }
+}

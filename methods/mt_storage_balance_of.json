@@ -1,0 +1,33 @@
+{
+  "name": "mt_storage_balance_of",
+  "summary": "Returns the storage balance of an account for set of token_ids",
+  "description": "Returns the storage balance of an account for set of token_ids. If the `account_id` is not registered it will return `null`",
+  "tags": [
+    {
+      "$ref": "../tags/view.json"
+    },
+    {
+      "$ref": "../tags/StorageManagement.json"
+    }
+  ],
+  "params": [
+    {
+      "name": "token_ids",
+      "summary": "The tokens to withdraw storage from",
+      "description": "The tokens to withdraw storage from",
+      "schema": {
+        "$ref": "../schemas/TokenIds.json"
+      },
+      "required": true
+    }
+  ],
+  "result": {
+    "name": "MtStorageBalanceOfResult",
+    "summary": "Storage balance of the `account_id`",
+    "description": "Storage balance of the `account_id`",
+    "schema": {
+      "$ref": "../schemas/StorageBalance.json"
+    },
+    "required": false
+  }
+}
